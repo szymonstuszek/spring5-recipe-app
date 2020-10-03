@@ -5,12 +5,15 @@ import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,6 +156,23 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacRecipe.setServings(4);
         guacRecipe.setSource("Simply Recipes");
 
+
+        try {
+            InputStream inputStream = RecipeBootstrap.class.getResourceAsStream("/static/images/guacamole400x400.jpg");
+            byte[] fileContent = IOUtils.toByteArray(inputStream);
+            Byte[] bytes = new Byte[fileContent.length];
+
+            int i = 0;
+
+            for (byte b : fileContent){
+                bytes[i++] = b;
+            }
+
+            guacRecipe.setImage(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //add to return list
         recipes.add(guacRecipe);
 
@@ -214,6 +234,23 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
         tacosRecipe.setServings(4);
         tacosRecipe.setSource("Simply Recipes");
+
+        try {
+            InputStream inputStream = RecipeBootstrap.class.getResourceAsStream("/static/images/tacos400x400.jpg");
+            byte[] fileContent = IOUtils.toByteArray(inputStream);
+            Byte[] bytes = new Byte[fileContent.length];
+
+            int i = 0;
+
+            for (byte b : fileContent){
+                bytes[i++] = b;
+            }
+
+            tacosRecipe.setImage(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         recipes.add(tacosRecipe);
         return recipes;
