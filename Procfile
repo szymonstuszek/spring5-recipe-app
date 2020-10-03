@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar pet-clinic-web/target/pet-clinic-web-0.0.3-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/spring5-recipe-app-0.0.1-SNAPSHOT.jar
